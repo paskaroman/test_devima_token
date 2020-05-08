@@ -1,0 +1,17 @@
+.user-list {
+  margin: 15px 0;
+  padding: 0;
+  list-style: none;
+  width: 40%;
+  li {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    .col {
+      width: 40%;
+    }
+    &:nth-of-type(even) {
+      background-color: #eaeaea;
+    }
+  }
+}

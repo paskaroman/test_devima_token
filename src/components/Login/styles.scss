@@ -1,0 +1,20 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  label {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+    input {
+      width: 60%;
+    }
+  }
+  button {
+    margin-top: 15px;
+  }
+  .error {
+    font-size: 12px;
+    color: red;
+  }
+}
