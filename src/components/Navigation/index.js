@@ -17,6 +17,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
+// Navigation component. TODO: change structure if routing will be changed
 class Navigation extends Component {
   logouthandler = () => {
     this.props.logoutUser();

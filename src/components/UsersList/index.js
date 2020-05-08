@@ -17,14 +17,17 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
+// User list screen
 class UsersList extends Component {
   componentDidMount() {
+    // get users data
     const token = localStorage.getItem("token");
     if (token) {
       this.props.getUsersRequest();
     }
   }
 
+  // render each user from data array
   renderUsers = () => {
     const { users } = this.props.users;
 
@@ -37,6 +40,7 @@ class UsersList extends Component {
   };
 
   refreshList = () => {
+    // get new users data
     this.props.getUsersRequest();
   };
 

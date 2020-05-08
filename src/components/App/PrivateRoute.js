@@ -2,12 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Redirect, Route } from "react-router-dom";
 
+// route component for authenticated users
 const PrivateRoute = ({ component: Component, token, ...rest }) => {
   return (
     <Route
       {...rest}
       render={(props) =>
-        token ? <Component {...props} /> : <Redirect to={"/login"} />
+        token ? <Component {...props} /> : <Redirect to="/login" />
       }
     />
   );

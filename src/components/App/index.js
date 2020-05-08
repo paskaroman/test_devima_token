@@ -27,6 +27,8 @@ class App extends Component {
   render() {
     const token = localStorage.getItem("token");
     const { isAuth } = this.props;
+
+    //TODO: restructure routes if quantity of routes will be bigger
     return (
       <Router>
         <Navigation />

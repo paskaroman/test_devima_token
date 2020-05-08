@@ -9,7 +9,10 @@ import api from "../api/api";
 
 function* loginUser(action) {
   try {
+    // login user and get tokens
     const token = yield call(api.loginUser, action.user);
+
+    // set tokens to localStotage
     yield localStorage.setItem("token", token.access_token.toString());
     yield localStorage.setItem("refresh-token", token.refresh_token.toString());
     yield put(loginUserSuccess());
@@ -20,6 +23,7 @@ function* loginUser(action) {
 
 function* logoutUser() {
   try {
+    // remove tokens
     yield localStorage.clear();
     yield put(logoutUserSuccess());
   } catch (e) {
@@ -30,22 +34,35 @@ function* logoutUser() {
 function* getUsers() {
   try {
     const token = yield localStorage.getItem("token");
+
+    // get all users data by access_token
     const users = yield call(api.getUsers, token);
+
+    // send users data to reducer
     yield put(getUsersSuccess(users));
   } catch (e) {
-    console.log(e.message);
-    yield fork(refreshToken);
+    /*TODO: modify API for best errors responses. Create handleError() layer
+      if errors will be 5** (server errors) process will loop
+    */
+
+    // access_token expired
+    yield fork(refreshAccessToken);
   }
 }
 
-function* refreshToken() {
+function* refreshAccessToken() {
   try {
     const token = localStorage.getItem("refresh-token");
-    const data = yield call(api.refreshToken, token);
+
+    // get new tokens by refresh_token
+    const data = yield call(api.refreshAccessToken, token);
     yield localStorage.setItem("token", data.access_token.toString());
     yield localStorage.setItem("refresh-token", data.refresh_token.toString());
+
+    // new access_token in localStorage. Make new call for users data
     yield fork(getUsers);
   } catch (e) {
+    // refresh_token expired. Logout user
     yield fork(logoutUser);
   }
 }

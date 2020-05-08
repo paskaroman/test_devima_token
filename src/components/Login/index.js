@@ -17,6 +17,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
+// Login screen: handles user credentials and dispath loginUser() action
 class Login extends Component {
   state = {
     username: null,
